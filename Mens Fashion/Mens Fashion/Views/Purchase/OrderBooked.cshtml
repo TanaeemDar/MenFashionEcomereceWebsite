@@ -1,0 +1,109 @@
+﻿@using Mens_Fashion.Models
+
+@{
+    int row = 0; int totalQty = 0;
+    decimal totalBill = 0;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Purchases Made Successfully</h4>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping__cart__table">
+                    <table class="col-lg-9" class="table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+
+                                <th>Quantity</th>
+                                <th>Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Session["myCart"] != null)
+                            {
+                                foreach (var item in (List<Product>)Session["myCart"])
+                                {
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="@Url.Content(item.PRODUCT_PICTURE)" height="100px" width="100px" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@item.PRODUCT_NAME</h6>
+                                                <h6>@item.PRODUCT_DESCRIPTION</h6>
+                                                <h5>$  @item.PRODUCT_PURCHASEPRICE</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity-box">
+
+                                            <b>@item.PRO_QUANTITY</b>
+                                        </td>
+                                        <td class="cart__price">$  @( decimal.Parse(item.PRODUCT_PURCHASEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()))</td>
+                                    </tr>
+                                    row++;
+                                    totalQty += item.PRO_QUANTITY;
+                                    totalBill += (decimal.Parse(item.PRODUCT_PURCHASEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()));
+                                }
+                                Session["totalAmount"] = totalBill;
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+
+                    <a href="@Url.Action("Purchase","Purchase")" class="btn-sm btn-success">Continue Purchasing</a>
+
+                </div>
+
+            </div>
+        </div>
+        </br> </br> </br> </br>
+        @if (Session["Order"] != null)
+        {
+            Order o = (Order)Session["Order"];
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="cart__total">
+                    <h6>Seller Details</h6>
+                    <ul>
+                        <li><b>Seller Name:</b> <span>@o.ORDER_NAME</span></li>
+                        <li><b>Seller Email: </b><span>@o.ORDER_EMIAL</span></li>
+
+                        <li><b>Seller Contact: </b><span>@o.ORDER_CONTACT</span></li>
+                        <li><b>Seller Address: </b><span>@o.ORDER_ADDRESS</span></li>
+                        <li><b>Order Status: </b><span> Paid </span></li>
+                        
+                    </ul>
+
+                </div>
+
+            </div>
+        }
+    </div>
+   
+</section>
+<!-- Shopping Cart Section End -->
+

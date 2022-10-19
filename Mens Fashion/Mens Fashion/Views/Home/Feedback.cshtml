@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Mens_Fashion.Models.ContactU>
+@{
+                /**/
+
+                int no = 0;
+               
+
+}
+
+<center><h2>Customer Questions</h2></center></br>
+
+<table class="table table-bordered table-hover ">
+    <tr style="background-color:indianred;color:white">
+        <th>Sr #</th>
+        <th>Message</th>
+        <th>Name</th>
+        <th>Email</th>
+       
+
+    </tr>
+
+    @foreach (var p in Model)
+    {
+        no++;
+        <tr>
+            <td align="center">@no</td>
+           
+            <td align="center">@p.FEEDBACK_DETAIL</td>
+            <td align="center">@p.FEEDBACK_NAME</td>
+            <td align="center">@p.FEEDBACK_EMAIL</td>
+           
+        </tr>
+    }
+
+
+
+</table>
+</div>

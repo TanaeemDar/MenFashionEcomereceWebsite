@@ -1,0 +1,78 @@
+﻿@using Mens_Fashion.Models
+@{
+    Model3 db = new Model3();
+
+
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>About Us</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("IndexCustomer","Home")">Home</a>
+                        <span>About Us</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+
+<section class="contact spad">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Information</span>
+                        <h2>About Us</h2>
+                        <p>
+                            @db.Companies.Select(x => x.COMPANY_ABOUT).FirstOrDefault()
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Counter Section Begin -->
+
+<section class="counter spad">
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="counter__item">
+                    <div class="counter__item__number">
+                        <h2 class="cn_num">@db.Customers.Count()</h2>
+                    </div>
+                    <span>Our <br />Customers</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="counter__item">
+                    <div class="counter__item__number">
+                        <h2 class="cn_num">@db.Products.Count()</h2>
+                    </div>
+                    <span>Total <br />Products</span>
+                </div>
+            </div>
+          
+        </div>
+           
+    </div>
+</section>
+  
+<!-- Counter Section End -->
+

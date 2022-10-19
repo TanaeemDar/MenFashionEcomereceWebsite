@@ -1,0 +1,122 @@
+﻿@using Mens_Fashion.Models
+@{Model3 db = new Model3(); }
+
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+
+<!-- Contact Section Begin -->
+@*<section class="contact spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Information</span>
+                        <h2>Contact Us</h2>
+                        <p>
+                            @db.IndexPageDetails.Select(x => x.FOOTER_DESCRIPTION).FirstOrDefault()
+                        </p>
+                    </div>
+                    <ul>
+                        <li>
+                            <b>Address  </b> @db.Companies.Select(x => x.COMPANY_ADDRESS).FirstOrDefault() <br />
+                            <b>Contact  </b>@db.Companies.Select(x => x.COMPANY_CONTACT).FirstOrDefault()<br />
+                            <b>Email  </b>@db.Companies.Select(x => x.COMPANY_EMAIL).FirstOrDefault()<br />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>*@
+
+@using (Html.BeginForm("FBack", "Home"))
+
+{<section class="contact spad">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Information</span>
+                        <h2>Contact Us</h2>
+                        <p>
+                            @db.IndexPageDetails.Select(x => x.FOOTER_DESCRIPTION).FirstOrDefault()
+                        </p>
+                    </div>
+                    <ul>
+                        <li>
+                            <b>Address  </b> @db.Companies.Select(x => x.COMPANY_ADDRESS).FirstOrDefault() <br />
+                            <b>Contact  </b>@db.Companies.Select(x => x.COMPANY_CONTACT).FirstOrDefault()<br />
+                            <b>Email  </b>@db.Companies.Select(x => x.COMPANY_EMAIL).FirstOrDefault()<br />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <h2>Ask Us</h2>
+                    </div>
+                </div>
+                <div class="contact__form">
+
+                    <form action="#">
+                        <div class="row">
+
+
+                            @if (Session["Customer"] != null)
+                            {
+                                Customer c = (Customer)Session["Customer"];
+
+
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Name" name="FEEDBACK_NAME" value="@c.CUSTOMER_NAME" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Email" name="FEEDBACK_EMAIL" value="@c.CUSTOMER_EMAIL" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea placeholder="Message" name="FEEDBACK_DETAIL" required></textarea>
+
+                                </div>
+                            }
+                            else
+                            {
+
+
+                                <div class="col-lg-6">
+                                    <input name="FEEDBACK_NAME" type="text" placeholder="Name" required>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input name="FEEDBACK_EMAIL" type="text" placeholder="Email" required>
+                                </div>
+                                <div class="col-lg-12">
+                                    <textarea name="FEEDBACK_DETAIL" placeholder="Message" required></textarea>
+
+                                </div>
+
+                            }
+
+                            <div class="col-lg-4">
+                                <input type="submit" class="site-btn" value="Send Message">
+                            </div>
+
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+}
+
+<!-- Contact Section End -->

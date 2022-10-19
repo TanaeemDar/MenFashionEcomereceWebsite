@@ -1,0 +1,163 @@
+﻿@using Mens_Fashion.Models
+
+
+@{
+    /**/
+
+    decimal totalBill = 0;
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Check Out</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("IndexCustomer","Home")">Home</a>
+
+                        <span>Check Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+@using (Html.BeginForm("PayNow", "Home"))
+
+{
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="#">
+                    <div class="row">
+
+
+                        @if (Session["Customer"] != null)
+                        {
+                            Customer c = (Customer)Session["Customer"];
+
+                            <div class="col-lg-8 col-md-6">
+
+                                <h6 class="checkout__title">Customer Information</h6>
+
+                                <div class="checkout__input">
+                                    <p> Name<span>*</span></p>
+                                    <input name="ORDER_NAME" type="text" value="@c.CUSTOMER_NAME" required>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Phone<span>*</span></p>
+                                            <input name="ORDER_CONTACT" value="@c.CUSTOMER_CONTACT" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Email<span>*</span></p>
+                                            <input name="ORDER_EMIAL" value="@c.CUSTOMER_EMAIL" type="text" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="checkout__input">
+                                    <p>Address<span>*</span></p>
+                                    <input name="ORDER_ADDRESS" type="text" value="@c.CUSTOMER_ADDRESS" placeholder="Full Address" class="checkout__input__add" required>
+
+                                </div>
+
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="col-lg-8 col-md-6">
+
+                                <h6 class="checkout__title">Customer Information</h6>
+
+                                <div class="checkout__input">
+                                    <p> Name<span>*</span></p>
+                                    <input name="ORDER_NAME" type="text" required>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Phone<span>*</span></p>
+                                            <input name="ORDER_CONTACT" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="checkout__input">
+                                            <p>Email<span>*</span></p>
+                                            <input name="ORDER_EMIAL" type="text" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="checkout__input">
+                                    <p>Address<span>*</span></p>
+                                    <input name="ORDER_ADDRESS" type="text" placeholder="Full Address" class="checkout__input__add" required>
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4 class="order__title">Your order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <ul class="checkout__total__products">
+                                    @foreach (var item in (List<Product>)Session["myCart"])
+                                    {
+                                        <li>@item.PRODUCT_DESCRIPTION <span>$ @(decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()))</span></li>
+                                        totalBill += (decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()));
+                                    }
+                                </ul>
+                                <ul class="checkout__total__all">
+                                   
+                                    <li>Total <span>$  @totalBill</span></li>
+                                       
+                                </ul>
+
+                                <div>
+
+                                    <input type="radio" name="ORDER_STATUS" value="Cash on Delivery" checked="checked" />
+                                    Cash on Delivery
+
+
+
+
+                                    @*<input type="radio" name="ORDER_STATUS" value="Paid" />
+                                    Paypal*@
+
+                                </div>
+                                <div>
+                                    <input type="submit" class="site-btn" value="PLACE ORDER">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+}
+
+<!-- Checkout Section End -->

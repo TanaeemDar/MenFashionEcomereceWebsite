@@ -1,0 +1,176 @@
+﻿@using Mens_Fashion.Models
+
+@{
+    int row = 0; int totalQty = 0;
+    decimal totalBill = 0;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="breadcrumb__text">
+                    <h4>Purchase Cart</h4>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shopping__cart__table">
+                    <table class="col-lg-9" class="table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Session["myCart"] != null)
+                            {
+                                foreach (var item in (List<Product>)Session["myCart"])
+                                {
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="@Url.Content(item.PRODUCT_PICTURE)" height="100px" width="100px" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@item.PRODUCT_NAME</h6>
+                                                <h6>@item.PRODUCT_DESCRIPTION</h6>
+                                                <h5><b>$  @item.PRODUCT_PURCHASEPRICE</b></h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity-box">
+
+                                            <a href="@Url.Action("MinusFromCart", "Purchase", new { RowNo = row })" class="btn btn-danger btn-sm fa fa-minus"></a>
+                                            <b>@item.PRO_QUANTITY</b>
+                                            <a href="@Url.Action("PlusToCart", "Purchase", new { RowNo = row })" class="btn btn-danger btn-sm fa fa-plus"></a>
+                                        </td>
+                                        <td class="cart__price">$ @( decimal.Parse(item.PRODUCT_PURCHASEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()))</td>
+                                        <td class="cart__close"><a href="@Url.Action("RemoveFromCart", "Purchase", new { RowNo = row })"><i class="btn btn-danger btn-sm fa fa-trash-o"></i></a></td>
+                                    </tr>
+                                    row++;
+                                    totalQty += item.PRO_QUANTITY;
+                                    totalBill += (decimal.Parse(item.PRODUCT_PURCHASEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()));
+                                }
+                                Session["totalAmount"] = totalBill;
+                            }
+                            @if (Session["myCart"] == null || row == 0)
+                            {
+                                <tr>
+                                    <td colspan="6">
+                                        <b style="color:red">
+                                            Your Purchase Cart Is Empty....<a href="@Url.Action("Purchase","Purchase")">
+                                                Click Here To Continue Purchasing
+                                            </a>
+                                        </b>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                </br>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    
+                        <a href="@Url.Action("Purchase","Purchase")" class="btn-sm btn-success">Continue Purchasing</a>
+                   
+                </div>
+            </div>
+            <div class="col-lg-12">
+                </br></br></br>
+                @using (Html.BeginForm("PurchaseNow", "Purchase"))
+
+                {
+                    <section class="checkout spad">
+                        <div class="container">
+                            <div class="checkout__form">
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+
+                                            <h4 class="checkout__title">Seller Information</h4>
+
+                                            <div class="checkout__input">
+                                                <p>Seller Name<span>*</span></p>
+                                                <input name="ORDER_NAME" type="text" required>
+                                            </div>
+
+
+
+                                         
+                                                
+                                                    <div class="checkout__input">
+                                                        <p>Seller Phone<span>*</span></p>
+                                                        <input name="ORDER_CONTACT" type="text" required>
+                                                    </div>
+                                              
+                                                
+                                                    <div class="checkout__input">
+                                                        <p>Seller Email<span>*</span></p>
+                                                        <input name="ORDER_EMIAL" type="text" required>
+
+                                                    </div>
+                                               
+                                       
+
+
+                                            <div class="checkout__input">
+                                                <p>Seller Address<span>*</span></p>
+                                                <input name="ORDER_ADDRESS" type="text" placeholder="Full Address" class="checkout__input__add" required>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="checkout__order">
+                                                <h4 class="order__title">Purchase Summary</h4>
+                                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                                <ul class="checkout__total__products">
+                                                  
+                                                </ul>
+                                                <ul class="checkout__total__all">
+
+                                                    <li>Total <span>@totalBill</span></li>
+                                                </ul>
+
+                                                
+                                                <div>
+                                                    <input type="submit" class="site-btn" value="Puschase Now">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+<script type="text/javascript">
+    window.onload = function ();
+    { window.scrollBy(0, 180); }
+
+</script>

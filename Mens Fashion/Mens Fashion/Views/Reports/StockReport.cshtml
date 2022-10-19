@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Product>
+@{
+    int no = 0;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "Stock Report";
+}
+<div id="printArea">
+    <center><h2>Stock Report</h2></center></br>
+
+    @using (Html.BeginForm("StockReport", "Reports", FormMethod.Post))
+    {
+        <table class="table table-bordered">
+            <tr>
+                <td>Date Form:</td>
+                <td><input type="datetime-local" readonly="readonly" name="DateFrom" value="@ViewBag.DateFrom" class="form-control"></td>
+                <td>Date To:</td>
+                <td><input type="datetime-local" name="DateTo" value="@ViewBag.DateTo" class="form-control"></td>
+                <td><input id="btn1" type="submit" value="Generate Report" class="btn btn-danger btn-block" /></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>
+                    @Html.DropDownList("Category", ViewBag.Category as SelectList, "Select Category", htmlAttributes: new { @class = "form-control" })
+                </td>
+                <td>Product:</td>
+                <td>
+                    @Html.DropDownList("Product", ViewBag.Product as SelectList, "Select Product", htmlAttributes: new { @class = "form-control" })
+                </td>
+                <td><input id="btn2" type="button" onclick="return PrintFunction();" value="Print Report" class="btn btn-danger btn-block" /></td>
+            </tr>
+        </table>
+    }
+    <table class="table table-bordered table-hover ">
+        <tr style="background-color:indianred;color:white">
+            <th>Sr #</th>
+            <th>Product Picture</th>
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Purchase Price</th>
+            <th>Sale Price</th>
+            <th>Available Stock</th>
+
+        </tr>
+
+        @foreach (var p in Model)
+        {
+            no++;
+            <tr>
+                <td align="center">@no</td>
+                <td align="center"><img height="100px" width="100px" src="@Url.Content(p.PRODUCT_PICTURE)" /></td>
+
+                <td align="center">@p.PRODUCT_NAME</td>
+                <td align="center">@p.PRODUCT_DESCRIPTION</td>
+                <td align="center">$  @p.PRODUCT_PURCHASEPRICE</td>
+                <td align="center">$  @p.PRODUCT_SALEPRICE</td>
+                <td align="center">@p.OrderDetails.Where(x => x.Order.ORDER_DATE <= Convert.ToDateTime(ViewBag.DateTo)).Sum(x => x.QUANTITY)</td>
+
+            </tr>
+        }
+
+
+
+    </table>
+</div>
+<script type="text/javascript">
+
+    function PrintFunction() {
+        var print = document.getElementById('printArea');
+        var b1 = document.getElementById('btn1');
+        var b2 = document.getElementById('btn2');
+        b1.style.display = 'none';
+        b2.style.display = 'none';
+        var printWindow = window.open('', '', 'height=400', 'width=800');
+        printWindow.document.write('<html><head><title>DIVContent</title>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(print.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        setTimeout(function () { printWindow.printWindow(); }, 500);
+        return false;
+        b1.style.display = 'block';
+        b2.style.display = 'block';
+
+    }
+
+</script>

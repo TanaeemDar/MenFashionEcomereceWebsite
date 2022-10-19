@@ -1,0 +1,106 @@
+﻿@model Mens_Fashion.Models.ShopModel
+@using Mens_Fashion.Models
+@{
+    Model3 db = new Model3();
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<!-- Breadcrumb Section Start -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Products</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("IndexCustomer","Home")">Home</a>
+                        <span>Products</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                 
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a  data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__categories">
+                                            <ul class="nice-scroll">
+
+                                                @foreach (var c in Model.Cat)
+                                                {
+
+                                                    <li>
+                                                        <a href="@Url.Action("DisplayProduct","Home", new { id= c.CATEGORY_ID})">@c.CATEGORY_NAME</a><small class="text-muted">(@c.Products.Count)</small>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Showing @db.Products.Count() results</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    @foreach (var p in Model.Pro)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="@Url.Content(p.PRODUCT_PICTURE)">
+                                    <ul class="product__hover">
+                                        <li><a href="#" data-toggle="collapse" data-placement="rigth" title="Stock :(@p.OrderDetails.Sum(x=>x.QUANTITY))"><img src="~/Content/Customer/img/icon/stock.png" alt=""></a></li>
+
+
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6 style="height:50PX">@p.PRODUCT_NAME</h6>
+                                    @if (p.OrderDetails.Sum(x => x.QUANTITY) > 0)
+                                    {
+                                        <a href="@Url.Action("AddToCart", "Home", new { id = p.PRODUCT_ID })" class="add-cart">+ Add To Cart</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" class="add-cart">Out Of Stock</a>
+                                    }
+                                    <h5>$  @p.PRODUCT_SALEPRICE</h5>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->

@@ -1,0 +1,72 @@
+﻿@model Mens_Fashion.Models.ShopModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Manage Purchase</h2>
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__categories">
+                                            <ul class="nice-scroll">
+
+                                                @foreach (var c in Model.Cat)
+                                                {
+
+                                                    <li>
+                                                        <a href="@Url.Action("Purchase","Purchase", new { id= c.CATEGORY_ID})">@c.CATEGORY_NAME</a><small class="text-muted">(@c.Products.Count)</small>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                
+                <div class="row">
+                    @foreach (var p in Model.Pro)
+                    {
+                        <div class=" col-md-6 col-sm-8">
+                            <div>
+
+                                <img src="@Url.Content(p.PRODUCT_PICTURE)" style="height:220px;width:210px" alt="Image">
+                                <h5>$  @p.PRODUCT_PURCHASEPRICE</h5>
+                            </div>
+                            <div>
+                                <a   href="@Url.Action("AddToCart","Purchase",new {id=p.PRODUCT_ID })" class="add-cart">+ Add To Stock</a>
+
+                                <h6 style="height:80PX">@p.PRODUCT_NAME</h6>
+                                
+
+                            </div>
+                            
+                        </div>
+                        
+                    }
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->

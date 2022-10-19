@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Order>
+@{
+    int no = 0;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.Title = "PurchaseReport";
+}
+<div id="printArea">
+    <center><h2>Purchase Report</h2></center></br>
+    @using (Html.BeginForm("PurchaseReport", "Reports", FormMethod.Post))
+    {
+        <table class="table table-bordered">
+            <tr>
+                <td>Date Form:</td>
+                <td><input type="datetime-local" name="DateFrom" value="@ViewBag.DateFrom" class="form-control"></td>
+                <td>Date To:</td>
+                <td><input type="datetime-local" name="DateTo" value="@ViewBag.DateTo" class="form-control"></td>
+                <td><input id="btn1" type="submit" value="Generate Report" class="btn btn-danger btn-block" /></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>
+                    @Html.DropDownList("Category", ViewBag.Category as SelectList, "Select Category", htmlAttributes: new { @class = "form-control" })
+                </td>
+                <td>Product:</td>
+                <td>
+                    @Html.DropDownList("Product", ViewBag.Product as SelectList, "Select Product", htmlAttributes: new { @class = "form-control" })
+                </td>
+                <td><input id="btn2" type="button" onclick="return PrintFunction();" value="Print Report" class="btn btn-danger btn-block" /></td>
+            </tr>
+        </table>
+    }
+    <table class="table table-bordered table-hover ">
+        <tr style="background-color:indianred;color:white">
+            <th>Sr #</th>
+            <th>Order Number</th>
+            <th>Order Date</th>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Customer Address</th>
+            <th>Customer Contact</th>
+            <th>Order Status</th>
+            <th>Order Type</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var o in Model)
+        {
+            no++;
+        <tr>
+            <td align="center">@no</td>
+            <td align="center">@o.ORDER_ID</td>
+            <td align="center">@DateTime.Parse(o.ORDER_DATE.ToString()).ToLongDateString()</td>
+            <td align="center">@o.ORDER_NAME</td>
+            <td align="center">@o.ORDER_EMIAL</td>
+            <td align="center">@o.ORDER_ADDRESS</td>
+            <td align="center">@o.ORDER_CONTACT</td>
+            <td align="center">@o.ORDER_STATUS</td>
+            <td align="center">@o.ORDER_TYPE</td>
+            <td align="center"><a href="@Url.Action("Invoice","Reports" , new {id=o.ORDER_ID })" class="btn btn-danger">View Invoice</a></td>
+
+        </tr>
+        }
+
+
+    </table>
+    </div>
+    <script type="text/javascript">
+
+        function PrintFunction() {
+            var print = document.getElementById('printArea');
+            var b1 = document.getElementById('btn1');
+            var b2 = document.getElementById('btn2');
+            b1.style.display = 'none';
+            b2.style.display = 'none';
+            var printWindow = window.open('', '', 'height=400', 'width=800');
+            printWindow.document.write('<html><head><title>DIVContent</title>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(print.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            setTimeout(function () { printWindow.printWindow(); }, 500);
+            return false;
+            b1.style.display = 'block';
+            b2.style.display = 'block';
+
+        }
+
+    </script>

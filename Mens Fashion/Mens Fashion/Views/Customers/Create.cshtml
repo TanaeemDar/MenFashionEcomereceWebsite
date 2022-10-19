@@ -1,0 +1,110 @@
+﻿@model Mens_Fashion.Models.Customer
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+        <title>Create</title>
+    
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+   
+                        
+
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
+                    <form action="#">
+                        <div >
+
+                            <div class="checkout__input">
+                              
+                                    <h4>Registration Form</h4>
+                              
+                                    <br /><br />
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="checkout__input">
+                                    <div class="control-label col-md-2">
+                                        Name
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(model => model.CUSTOMER_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CUSTOMER_NAME, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="checkout__input">
+                                    <div class="control-label col-md-2">
+                                        Email
+                                    </div> <div class="col-md-6">
+                                        @Html.EditorFor(model => model.CUSTOMER_EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CUSTOMER_EMAIL, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="checkout__input">
+                                    <div class="control-label col-md-2">
+                                        Password
+                                    </div> <div class="col-md-6">
+                                        @Html.EditorFor(model => model.CUSTOMER_PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CUSTOMER_PASSWORD, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="checkout__input">
+                                    <div class="control-label col-md-2">
+                                        Address
+                                    </div> <div class="col-md-6">
+                                        @Html.EditorFor(model => model.CUSTOMER_ADDRESS, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CUSTOMER_ADDRESS, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="checkout__input">
+                                    <div class="control-label col-md-2">
+                                        Contact
+                                    </div>  <div class="col-md-6">
+                                        @Html.EditorFor(model => model.CUSTOMER_CONTACT, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CUSTOMER_CONTACT, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-2">
+                                        <input type="submit" value="Create" class="primary-btn" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+    }
+
+
+</body>
+</html>

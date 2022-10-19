@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-hover ">
+    <tr style="background-color:indianred;color:white">
+
+        <th>
+            PRODUCT NAME
+        </th>
+        <th>
+            DESCRIPTION
+        </th>
+
+
+        <th>
+            PURCHASE PRICE
+        </th>
+        <th>
+            SALE PRICE
+        </th>
+        <th>
+            PRODUCT PICTURE
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PRODUCT_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PRODUCT_DESCRIPTION)
+            </td>
+
+            <td>
+                <span>$</span>@Html.DisplayFor(modelItem => item.PRODUCT_PURCHASEPRICE)
+            </td>
+            <td>
+                <span>$</span>@Html.DisplayFor(modelItem => item.PRODUCT_SALEPRICE)
+            </td>
+            <td>
+                <img height="100px" width="100px" src="@Url.Content(item.PRODUCT_PICTURE)" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PRODUCT_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.PRODUCT_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PRODUCT_ID })
+            </td>
+        </tr>
+    }
+
+</table>

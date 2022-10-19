@@ -1,0 +1,29 @@
+﻿@using Mens_Fashion.Models
+@{
+    Model3 db = new Model3();
+
+
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<section class="contact spad">
+<div class="container">
+    <div class="row">
+        <div>
+            <div class="contact__text">
+                <div class="section-title">
+                    <span>Information</span>
+                    <h2>Return & Exchange</h2>
+                    <p>
+                        @db.IndexPageDetails.Select(x => x.RETURNandEXCHANGE).FirstOrDefault()
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</section>

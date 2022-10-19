@@ -1,0 +1,162 @@
+﻿@model IEnumerable<Mens_Fashion.Models.IndexPageDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index Page</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered">
+    <tr style="background-color:indianred;color:white">
+        <th>
+            Alert
+        </th>
+        <th>
+           Slider 1 Picture
+        </th>
+        <th>
+            Slider 1 Title
+        </th>
+        <th>
+           Slider 1 Description
+        </th>
+        <th>
+            Slider 2 Picture
+        </th>
+        <th>
+            Slider 2 Title
+        </th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ALERT)
+            </td>
+            <td>
+
+                <img height="100px" width="100px" src="@Url.Content(item.SIDER1_PIC)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLIDER1_TITLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLIDER1_DESCRIPTION)
+            </td>
+            <td>
+                <img height="100px" width="100px" src="@Url.Content(item.SIDER2_PIC)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLIDER2_TITLE)
+            </td>
+        </tr>
+
+    }
+</table>
+<table class="table table-bordered">
+    <tr style="background-color:indianred;color:white">
+
+        <th>
+            Slider 2 Description
+        </th>
+        <th>
+           Banner 1 Picture
+        </th>
+        <th>
+            Banner 1 Title
+        </th>
+        <th>
+            Banner 2 Picture
+        </th>
+        <th>
+            Banner 2 Title
+        </th>
+        <th>
+            Banner 3 Picture
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SLIDER2_DESCRIPTION)
+            </td>
+            <td>
+                <img height="100px" width="100px" src="@Url.Content(item.BANNER1_PIC)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BANNER1_TITLE)
+            </td>
+            <td>
+                <img height="100px" width="100px" src="@Url.Content(item.BANNER2_PIC)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BANNER2_TITLE)
+            </td>
+            <td>
+                <img height="100px" width="100px" src="@Url.Content(item.BANNER3_PIC)" />
+            </td>
+        </tr>
+    }
+</table>
+<table class="table table-bordered">
+    <tr style="background-color:indianred;color:white">
+        <th>
+            Banner 3 Title
+        </th>
+        <th>
+            Footer Description
+        </th>
+        <th>
+          Payment Methodes
+        </th>
+        <th>
+           Delivery
+        </th>
+        <th>
+           Return & Exchange
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BANNER3_TITLE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FOOTER_DESCRIPTION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PAYMENT_METHODES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DELIVERRY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RETURNandEXCHANGE)
+            </td>
+
+        </tr>
+        <tr >
+            <td colspan="6"><center>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+              
+               @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </center>
+            </td>
+        </tr>
+
+
+    }
+
+</table>

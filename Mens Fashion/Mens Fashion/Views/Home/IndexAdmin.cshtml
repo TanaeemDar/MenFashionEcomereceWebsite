@@ -1,0 +1,52 @@
+﻿@using Mens_Fashion.Models
+@{ 
+    Model3 db = new Model3();
+
+}
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-red set-icon">
+                <i class="fa fa-users"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Admins.Count() Admin</p>
+                <p class="text-muted">Accounts</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-green set-icon">
+                <i class="fa fa-archive"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Products.Count() Product</p>
+                <p class="text-muted">For Sale</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-blue set-icon">
+                <i class="fa fa-money"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.OrderDetails.Where(x => x.Order.ORDER_TYPE == "Sale").Sum(x=>(x.SALE_PRICE*x.QUANTITY)*-1)</p>
+                <p class="text-muted">Earning</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="panel panel-back noti-box">
+            <span class="icon-box bg-color-brown set-icon">
+                <i class="fa fa-rocket"></i>
+            </span>
+            <div class="text-box">
+                <p class="main-text">@db.Orders.Where(x=>x.ORDER_TYPE=="Sale").Count() Orders</p>
+                <p class="text-muted">Sale Orders</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. ROW  -->

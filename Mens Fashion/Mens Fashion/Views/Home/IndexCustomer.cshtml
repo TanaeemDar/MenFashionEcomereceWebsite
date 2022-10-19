@@ -1,0 +1,140 @@
+﻿@model Mens_Fashion.Models.ShopModel
+    @using Mens_Fashion.Models
+@{
+    Model3 db = new Model3();
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<!-- Hero Section Begin -->
+<section class="hero">
+    <div class="hero__slider owl-carousel">
+        <div class="hero__items set-bg" data-setbg="@Url.Content( db.IndexPageDetails.Select(x => x.SIDER1_PIC).FirstOrDefault())">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-7 col-md-8">
+                        <div class="hero__text">
+                            
+                            <h2>@db.IndexPageDetails.Select(x => x.SLIDER1_TITLE).FirstOrDefault()</h2>
+                            <p>
+                                @db.IndexPageDetails.Select(x => x.SLIDER1_DESCRIPTION).FirstOrDefault()
+                            </p>
+                            <a href="@Url.Action("DisplayProduct","Home")" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__items set-bg" data-setbg="@Url.Content( db.IndexPageDetails.Select(x => x.SIDER2_PIC).FirstOrDefault())">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-7 col-md-8">
+                        <div class="hero__text">
+                           
+                            <h2>@db.IndexPageDetails.Select(x => x.SLIDER2_TITLE).FirstOrDefault()</h2>
+                            <p>
+                                @db.IndexPageDetails.Select(x => x.SLIDER2_DESCRIPTION).FirstOrDefault()
+                            </p>
+                            <a href="@Url.Action("DisplayProduct","Home")" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Banner Section Begin -->
+<section class="banner spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 offset-lg-4">
+                <div class="banner__item">
+                    <div class="banner__item__pic">
+                        <img src="@Url.Content( db.IndexPageDetails.Select(x => x.BANNER1_PIC).FirstOrDefault())" alt="">
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>@db.IndexPageDetails.Select(x => x.BANNER1_TITLE).FirstOrDefault()</h2>
+                        <a href="@Url.Action("DisplayProduct","Home")">Shop now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="banner__item banner__item--middle">
+                    <div class="banner__item__pic">
+                        <img src="@Url.Content( db.IndexPageDetails.Select(x => x.BANNER2_PIC).FirstOrDefault())" alt="">
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>@db.IndexPageDetails.Select(x => x.BANNER2_TITLE).FirstOrDefault()</h2>
+                        <a href="@Url.Action("DisplayProduct","Home")">Shop now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="banner__item banner__item--last">
+                    <div class="banner__item__pic">
+                        <img src="@Url.Content( db.IndexPageDetails.Select(x => x.BANNER3_PIC).FirstOrDefault())" alt="">
+                    </div>
+                    <div class="banner__item__text">
+                        <h2>@db.IndexPageDetails.Select(x => x.BANNER3_TITLE).FirstOrDefault()</h2>
+                        <a href="@Url.Action("DisplayProduct","Home")">Shop now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="filter__controls">
+                    <li class="active" data-filter="*">New Arrivals</li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="row product__filter">
+
+            @foreach (var p in Model.Pro)
+            {  
+
+               
+            <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 ">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="@Url.Content(p.PRODUCT_PICTURE)">
+                        <ul class="product__hover">
+                            <li><a href="#" data-toggle="collapse" data-placement="rigth" title="Stock :(@p.OrderDetails.Sum(x => x.QUANTITY))"><img src="~/Content/Customer/img/icon/stock.png" alt=""></a></li>
+
+
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6 style="height:50PX">@p.PRODUCT_NAME</h6>
+                        @if (p.OrderDetails.Sum(x => x.QUANTITY) > 0)
+                        {
+                            <a href="@Url.Action("AddToCart", "Home", new { id = p.PRODUCT_ID })" class="add-cart">+ Add To Cart</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="add-cart">Out Of Stock</a>
+                        }
+                        <h5>$  @p.PRODUCT_SALEPRICE</h5>
+
+                    </div>
+                </div>
+            </div>
+                }
+            
+
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+
+
+<br /><br /><br /><br />

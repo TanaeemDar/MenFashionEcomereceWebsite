@@ -1,0 +1,68 @@
+﻿@model Mens_Fashion.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            CATEGORY NAME
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CATEGORY_NAME)
+        </dd>
+
+        <dt>
+           PRODUCT NAME
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_NAME)
+        </dd>
+
+        <dt>
+          DESCRIPTION
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_DESCRIPTION)
+        </dd>
+
+        
+
+        <dt>
+           PURCHASE PRICE
+        </dt>
+
+        <dd>
+            <span>$</span> @Html.DisplayFor(model => model.PRODUCT_PURCHASEPRICE)
+        </dd>
+
+        <dt>
+           SALE PRICE
+        </dt>
+
+        <dd>
+            <span>$</span> @Html.DisplayFor(model => model.PRODUCT_SALEPRICE)
+        </dd>
+
+        <dt>
+           PRODUCT PICTURE
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.PRODUCT_PICTURE)" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PRODUCT_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

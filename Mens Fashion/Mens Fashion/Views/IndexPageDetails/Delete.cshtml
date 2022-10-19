@@ -1,0 +1,161 @@
+﻿@model Mens_Fashion.Models.IndexPageDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>IndexPageDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ALERT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ALERT)
+        </dd>
+
+        <dt>
+           SLIDER1_PIC
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.SIDER1_PIC)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLIDER1_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLIDER1_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLIDER1_DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLIDER1_DESCRIPTION)
+        </dd>
+
+        <dt>
+           SLIDER2_PIC
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.SIDER2_PIC)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLIDER2_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLIDER2_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLIDER2_DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLIDER2_DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER1_PIC)
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.BANNER1_PIC)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER1_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BANNER1_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER2_PIC)
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.BANNER2_PIC)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER2_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BANNER2_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER3_PIC)
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.BANNER3_PIC)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BANNER3_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BANNER3_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FOOTER_DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FOOTER_DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PAYMENT_METHODES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PAYMENT_METHODES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DELIVERRY)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DELIVERRY)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RETURNandEXCHANGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETURNandEXCHANGE)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

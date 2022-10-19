@@ -1,0 +1,116 @@
+﻿@using Mens_Fashion.Models
+
+@{
+    int row = 0; int totalQty = 0;
+    decimal totalBill = 0;
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Order Booked </h4>
+                        </br>
+                        <h4>Thanks For Choosing Us.</h4>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table class="table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Session["myCart"] != null)
+                                {
+                                    foreach (var item in (List<Product>)Session["myCart"])
+                                    {
+                                        <tr>
+                                            <td class="product__cart__item">
+                                                <div class="product__cart__item__pic">
+                                                    <img src="@Url.Content(item.PRODUCT_PICTURE)" height="100px" width="100px" alt="">
+                                                </div>
+                                                <div class="product__cart__item__text">
+                                                    <h6>@item.PRODUCT_NAME</h6>
+                                                    <h6>@item.PRODUCT_DESCRIPTION</h6>
+                                                    <h5>$  @item.PRODUCT_SALEPRICE</h5>
+                                                </div>
+                                            </td>
+                                            <td class="quantity-box">
+
+                                                <b>@item.PRO_QUANTITY</b>
+                                            </td>
+                                            <td class="cart__price">$  @(decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()))</td>
+                                        </tr>
+                                        row++;
+                                        totalQty += item.PRO_QUANTITY;
+                                        totalBill += (decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()));
+                                    }
+                                    Session["totalAmount"] = totalBill;
+                                }
+                                @if (Session["myCart"] == null || row == 0)
+                                {
+                                    <tr>
+                                        <td colspan="6"><b>Your Cart Is Empty....Click Continue Shopping Below To Buy</b></td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="@Url.Action("DisplayProduct","Home")">Continue Shopping</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @if (Session["Order"] != null)
+                {
+                    Order o = (Order)Session["Order"];
+
+                    <div class="col-lg-4">
+
+                        <div class="cart__total">
+                            <h6>Customer Details</h6>
+                            <ul>
+                                <li>Customr Name <span>@o.ORDER_NAME</span></li>
+                                <li>Customr Email <span>@o.ORDER_EMIAL</span></li>
+
+                                <li>Customr Contact <span>@o.ORDER_CONTACT</span></li>
+                                <li>Customr Address <span>@o.ORDER_ADDRESS</span></li>
+                                <li>Order Status <span>@o.ORDER_STATUS </span></li>
+                                <li><b>Thank You Order will be Delivered to you as per TERMS & CONDITIONS.</b></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->

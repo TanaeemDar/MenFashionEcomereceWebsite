@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Admin>
+@using Mens_Fashion.Models;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Admin Account</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table  table-bordered table-hover ">
+<tr style="background-color:indianred;color:white">
+    <th>
+        @Html.DisplayNameFor(model => model.ADMIN_NAME)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ADMIN_EMAIL)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ADMIN_PASSWORD)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ADMIN_CONTACT)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.ADMIN_ADDRESS)
+    </th>
+    <th></th>
+</tr>
+
+@foreach (var item in Model)
+{
+
+
+    Admin a = (Admin)Session["Admin"];
+    if (a.ADMIN_ID == item.ADMIN_ID)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMIN_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMIN_EMAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMIN_PASSWORD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMIN_CONTACT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ADMIN_ADDRESS)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ADMIN_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ADMIN_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ADMIN_ID })
+            </td>
+        </tr>
+    }
+}
+
+</table>

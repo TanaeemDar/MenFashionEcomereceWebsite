@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Customer>
+@using Mens_Fashion.Models
+@{
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+
+       <center> 
+
+           <table class="table">
+
+
+
+
+               @if (Session["Customer"] != null)
+               {
+                   <br />
+                   <br />
+                   <br />
+                   <tr><center><h3>Account Details</h3></center></tr>
+                   <br />
+                   <br />
+                   <br />
+                   <tr>
+                       <td></td>
+                       <td></td>
+                       <th colspan="2">
+                           NAME
+                       </th>
+                       <th colspan="2">
+                           EMAIL
+                       </th>
+                       <th>
+                           PASSWORD
+                       </th>
+                       <th>
+                           ADDRESS
+                       </th>
+                       <th>
+                           CONTACT
+                       </th>
+                       <th colspan="2" style="text-align:center">
+                           ACCOUNT
+                       </th>
+                   </tr>
+
+
+
+                   foreach (var item in Model)
+                   {
+
+                       Customer c = (Customer)Session["Customer"];
+                       if (c.CUSTOMER_ID == item.CUSTOMER_ID)
+                       {
+                   <tr>
+                       <td></td>
+                       <td></td>
+                       <td colspan="2">
+                           @Html.DisplayFor(modelItem => item.CUSTOMER_NAME)
+                       </td>
+                       <td colspan="2">
+                           @Html.DisplayFor(modelItem => item.CUSTOMER_EMAIL)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.CUSTOMER_PASSWORD)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.CUSTOMER_ADDRESS)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.CUSTOMER_CONTACT)
+                       </td>
+
+                       <td align="center"><a href="@Url.Action("Edit", "Customers", new { id = item.CUSTOMER_ID })" class="primary-btn">Edit</a>
+                       <a href="@Url.Action("Details", "Customers", new { id = item.CUSTOMER_ID })" class="primary-btn">Details</a></td>
+
+
+
+
+                   </tr>
+
+
+                       }
+
+
+
+
+                   }
+               }
+               else
+               {
+                   
+                   <tr>
+                       <td colspan="6"><center><h4><b>Account Created Successfully Thank You.</b></h4> <br /><br /><br /><br /><br /><br /><br /><br /> <br /><br /><br /><br /><br /><br /><br /><br /></center></td>
+
+                   </tr>
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+                   <br />
+
+
+               }
+           </table>
+           </center>
+        </body>
+</html>

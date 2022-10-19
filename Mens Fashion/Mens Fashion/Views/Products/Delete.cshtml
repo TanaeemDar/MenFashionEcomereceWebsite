@@ -1,0 +1,74 @@
+﻿@model Mens_Fashion.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CATEGORY_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CATEGORY_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRODUCT_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRODUCT_DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_DESCRIPTION)
+        </dd>
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRODUCT_PURCHASEPRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_PURCHASEPRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRODUCT_SALEPRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PRODUCT_SALEPRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PRODUCT_PICTURE)
+        </dt>
+
+        <dd>
+            <img height="100px" width="100px" src="@Url.Content(Model.PRODUCT_PICTURE)" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,179 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Order>
+    @using Mens_Fashion.Models;
+@{
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+    Model3 db = new Model3();
+    ViewBag.Title = "Invoice";
+}
+<div id="printArea">
+    <table width="100%">
+        <tr>
+            <td width="33%" rowspan="3"><img src="@Url.Content( db.Companies.Select(x => x.COMPANY_LOGO).FirstOrDefault())" height="23px" width="196px" /></td>
+            <td width="33%"></td>
+            <td width="33%"><b>Email: </b>@db.Companies.Select(x => x.COMPANY_EMAIL).FirstOrDefault()</td>
+        </tr>
+        <tr>
+            <td width="33%"></td>
+            <td><b>Address: </b>@db.Companies.Select(x => x.COMPANY_ADDRESS).FirstOrDefault()</td>
+        </tr>
+        <tr>
+            <td width="33%"></td>
+            <td><b>Contact: </b>@db.Companies.Select(x => x.COMPANY_CONTACT).FirstOrDefault()</td>
+        </tr>
+    </table><br/><br />
+                 <center><h2>Order Invoice</h2></center>
+    @foreach (var o in Model)
+    {
+        <section class="shopping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shopping__cart__table">
+
+                            <table class="table table-bordered table-hover">
+
+                                <tr>
+                                    <td align="center" colspan="4" style="font-size:large">
+                                        Order Detail
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Order Number</td>
+                                    <th>@o.ORDER_ID</th>
+                                    <td>Person Name</td>
+                                    <th>@o.ORDER_NAME</th>
+                                </tr>
+                                <tr>
+                                    <td>Order Date</td>
+                                    <th>@o.ORDER_DATE</th>
+                                    <td>Contact</td>
+                                    <th>@o.ORDER_CONTACT</th>
+                                </tr>
+                                <tr>
+                                    <td>Order Status</td>
+                                    <th>@o.ORDER_STATUS</th>
+                                    <td>Email</td>
+                                    <th>@o.ORDER_EMIAL</th>
+                                </tr>
+                                <tr>
+                                    <td>Order Type</td>
+                                    <th>@o.ORDER_TYPE</th>
+                                    <td>Address</td>
+                                    <th>@o.ORDER_ADDRESS</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        double totalAmount = 0;
+        int totalQty = 0;
+
+        <section class="shopping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shopping__cart__table">
+
+                            <table class="table table-bordered table-hover">
+
+                                <thead>
+                                    <tr>
+                                        <th>Product Picture</th>
+                                        <th>Product Name</th>
+                                        <th>Product Description</th>
+                                        <th>Product Price</th>
+                                        <th>Product Quatity</th>
+                                        <th>Product Price Total</th>
+
+                                    </tr>
+                                </thead>
+                                @foreach (var od in o.OrderDetails)
+                                {
+                                    <tr>
+                                        <td><img height="100px" width="100px" src="@Url.Content(od.Product.PRODUCT_PICTURE)" /></td>
+                                        <td>@od.Product.PRODUCT_NAME</td>
+                                        <td>@od.Product.PRODUCT_DESCRIPTION</td>
+
+                                        <td>
+                                            @if (o.ORDER_TYPE == "Purchase")
+                                            {
+                                                @od.PURCHASE_PRICE
+                                            }
+                                            else
+                                            {
+                                                @od.SALE_PRICE
+
+                                            }
+                                        </td>
+                                        <td>@Math.Abs(Convert.ToInt32(od.QUANTITY))</td>
+
+                                        <td>
+                                            @if (o.ORDER_TYPE == "Purchase")
+                                            {
+                                                @(double.Parse(od.PURCHASE_PRICE.ToString()) * Math.Abs(int.Parse(od.QUANTITY.ToString())))
+                                            }
+                                            else
+                                            {
+                                                @(double.Parse(od.SALE_PRICE.ToString()) * Math.Abs(int.Parse(od.QUANTITY.ToString())))
+
+                                            }
+                                        </td>
+
+                                    </tr>
+                                    totalQty += Math.Abs(int.Parse(od.QUANTITY.ToString()));
+                                    if (o.ORDER_TYPE == "Purchase")
+                                    {
+
+                                        totalAmount += double.Parse(od.PURCHASE_PRICE.ToString()) * Math.Abs(int.Parse(od.QUANTITY.ToString()));
+                                    }
+                                    else
+
+                                    {
+
+                                        totalAmount += double.Parse(od.SALE_PRICE.ToString()) * Math.Abs(int.Parse(od.QUANTITY.ToString()));
+
+
+
+                                    }
+                                }
+                                <tr>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>@totalQty</td>
+                                    <td>$  @totalAmount</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+</div>
+                                <center>  <input type="button" onclick="return PrintFunction();" value="Print Invoice" class="primary-btn btn-sm" /></center>
+                                <br />
+                                <br />
+                                <br />
+  
+                                <script type="text/javascript">
+
+                                    function PrintFunction() {
+                                        var print = document.getElementById('printArea');
+
+                                        var printWindow = window.open('', '', 'height=400', 'width=800');
+                                        printWindow.document.write('<html><head><title>DIVContent</title>');
+                                        printWindow.document.write('</head><body>');
+                                        printWindow.document.write(print.innerHTML);
+                                        printWindow.document.write('</body></html>');
+                                        printWindow.document.close();
+                                        setTimeout(function () { printWindow.printWindow(); }, 500);
+                                        return false;
+
+                                    }
+
+                                </script>

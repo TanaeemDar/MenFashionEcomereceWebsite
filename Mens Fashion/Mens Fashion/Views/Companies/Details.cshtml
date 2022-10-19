@@ -1,0 +1,65 @@
+﻿@model Mens_Fashion.Models.Company
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_EMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY_EMAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_CONTACT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY_CONTACT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_ADDRESS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY_ADDRESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_LOGO)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content(Model.COMPANY_LOGO)" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY_ABOUT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY_ABOUT)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COMPANY_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

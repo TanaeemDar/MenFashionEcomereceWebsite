@@ -1,0 +1,123 @@
+﻿@using Mens_Fashion.Models
+
+
+@{
+   
+    int row = 0; int totalQty = 0;
+    decimal totalBill = 0;
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Shopping Cart</h4>
+                    <div class="breadcrumb__links">
+                        <a href="@Url.Action("IndexCustomer","Home")">Home</a>
+
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping__cart__table">
+                    <table class="table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Session["myCart"] != null)
+                            {
+                                foreach (var item in (List<Product>)Session["myCart"])
+                                {
+                                    <tr>
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="@Url.Content(item.PRODUCT_PICTURE)" height="100px" width="100px" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>@item.PRODUCT_NAME</h6>
+                                                <h6>@item.PRODUCT_DESCRIPTION</h6>
+                                                <h6>Available :(@item.OrderDetails.Sum(x => x.QUANTITY))</h6>
+                                                <h5>$  @item.PRODUCT_SALEPRICE</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity-box">
+
+                                            <a href="@Url.Action("MinusFromCart", "Home", new { RowNo = row })" class="btn btn-danger btn-sm fa fa-minus"></a>
+                                            <b>@item.PRO_QUANTITY</b>
+                                            <a href="@Url.Action("PlusToCart", "Home", new { RowNo = row })" class="btn btn-danger btn-sm fa fa-plus"></a>
+                                        </td>
+                                        <td class="cart__price">$  @( decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()))</td>
+                                        <td class="cart__close"><a href="@Url.Action("RemoveFromCart", "Home", new { RowNo = row })"><i class="fa fa-close"></i></a></td>
+                                    </tr>
+                                    row++;
+                                    totalQty += item.PRO_QUANTITY;
+                                    totalBill += (decimal.Parse(item.PRODUCT_SALEPRICE.ToString()) * int.Parse(item.PRO_QUANTITY.ToString()));
+                                }
+                                Session["totalAmount"] = totalBill;
+                            }
+                            @if (Session["myCart"] == null || row == 0)
+                            {
+                                <tr>
+                                    <td colspan="6"><b>Your Cart Is Empty....Click Continue Shopping Below To Buy</b></td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn">
+                            <a href="@Url.Action("DisplayProduct","Home")">Continue Shopping</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+
+                <div class="cart__total">
+                    <h6>Cart total</h6>
+                    <ul>
+
+                        <li>Total Quatity <span>@totalQty</span></li>
+                        <li>Total Price <span>$  @totalBill</span></li>
+                    </ul>
+
+                    @if (Session["myCart"] != null)
+                    {
+                        <a href="@Url.Action("Checkout", "Home")" class="primary-btn">Proceed To Checkout</a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+<script type="text/javascript">
+    window.onload = function ();
+    { window.scrollBy(0, 180); }
+
+</script>

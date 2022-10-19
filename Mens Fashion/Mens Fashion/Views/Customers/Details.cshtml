@@ -1,0 +1,83 @@
+﻿@model Mens_Fashion.Models.Customer
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <form action="#">
+                <div>
+                    <div class="checkout__input">
+                                <center><h4>Customer Information</h4></center>
+                                <br />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CUSTOMER_NAME)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CUSTOMER_NAME)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CUSTOMER_EMAIL)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CUSTOMER_EMAIL)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CUSTOMER_PASSWORD)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CUSTOMER_PASSWORD)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CUSTOMER_ADDRESS)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CUSTOMER_ADDRESS)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CUSTOMER_CONTACT)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CUSTOMER_CONTACT)
+                            </dd>
+
+                        </dl>
+                    </div>
+                    <p>
+                       
+                        <div align="left">
+                            <a href="@Url.Action("Edit", "Customers", new { id = Model.CUSTOMER_ID })" class="primary-btn">Edit</a>
+                            <a href="@Url.Action("Index", "Customers")" class="primary-btn">Back</a>
+                        </div>
+
+
+                    </p>
+                    </div>
+                </form>
+                </div>
+        </div>
+        </section>
+
+</body>
+</html>

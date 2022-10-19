@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Mens_Fashion.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categories</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table  table-bordered table-hover ">
+    <tr style="background-color:indianred;color:white">
+        <th>
+            @Html.DisplayNameFor(model => model.CATEGORY_NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CATEGORY_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CATEGORY_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CATEGORY_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CATEGORY_ID })
+        </td>
+    </tr>
+}
+
+</table>
